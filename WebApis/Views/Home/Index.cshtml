@@ -1,0 +1,41 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Using default configuration
+        $("#s2").carouFredSel();
+
+        // Using custom configuration
+        $("#s2").carouFredSel({
+            items: 1,
+            direction: "up",
+            scroll: {
+                fx: "crossfade"
+            }
+        });
+    });
+
+</script>
+<div class="span8">
+    <div id="s2" class="pics">
+        <img src="/assets/images/carousel/photo.jpg" width="500" height="400" />
+        <img src="/assets/images/carousel/photo1.jpg" width="500" height="400" />
+        <img src="/assets/images/carousel/photo2.jpg" width="500" height="400" />
+        <img src="/assets/images/carousel/photo3.jpg" width="500" height="400" />
+    </div>
+</div>
+<style type="text/css">
+    .pics
+    {
+        height: 420px;
+        width: 520px;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .pics img
+    {        
+        background-color: #eee;
+        width: 500px;
+        height: 400px;        
+    }
+</style>

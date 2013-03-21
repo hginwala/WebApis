@@ -1,0 +1,41 @@
+﻿@*<div id='mobi-header'>
+    <a class='logo' href='/'>
+        <img src='/assets/images/logo-header.png' alt='' />
+    </a>
+    <a class='link-mobi menu' href='#mobi-start'>Menu</a>
+    <a class='link-mobi login 'href="/Login.aspx?@Request.QueryString">Log In</a>
+</div>
+<div id='mobi-start'>
+    <a class='mobi-logo'>OneWire</a>
+    <a class='mobi-nav' href='#mobi-header'>Back to top</a>
+</div>*@
+<style>
+    .headerclass
+    {
+        background: url('/assets/images/logo.png') no-repeat;
+        position: relative;
+        height: 275px;
+    }
+    .top-nav
+    {
+        float: right;
+        position: absolute;
+        bottom:0px;
+        right: 15px;
+        padding: 10px 0 20px 15px;  
+    }
+    #nav > li
+    {
+        float: left;
+    }
+</style>
+<div class="container headerclass">
+     <ul class="nav nav-pills top-nav">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">WholeSale</a></li>
+        <li><a href="#">About</a></li>
+    </ul>
+    <a style="float:right" href="/">Cart</a>
+</div>

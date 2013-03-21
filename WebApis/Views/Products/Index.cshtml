@@ -1,0 +1,33 @@
+﻿<script src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+    // Use the Google Loader script to load the google.picker script.
+    google.setOnLoadCallback(createPicker);
+    google.load('picker', '1');
+
+    // Create and render a Picker object for searching images.
+    function createPicker() {
+        var view = new google.picker.View(google.picker.ViewId.DOCS);
+        view.setMimeTypes("image/png,image/jpeg,image/jpg");
+        var picker = new google.picker.PickerBuilder()
+            .setAppId("55157292104-afc6a6r007ro99epmc42dk4lhhf0e8pi.apps.googleusercontent.com")
+            //.setOAuthToken(AUTH_TOKEN)
+            .addView(google.picker.ViewId.DOCUMENTS).
+            setCallback(pickerCallback).
+            build();
+        picker.setVisible(true);
+    }
+
+    // A simple callback implementation.
+    function pickerCallback(data) {
+        var url = 'nothing';
+        if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+            var doc = data[google.picker.Response.DOCUMENTS][0];
+            url = doc[google.picker.Document.URL];
+        }
+        var message = 'You picked: ' + url;
+        document.getElementById('result').innerHTML = message;
+    }
+</script>
+<div id="result">
+</div>
