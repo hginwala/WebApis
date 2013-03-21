@@ -1,13 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PMDataContext.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
   <EntityContainer Name="PMDataContextStoreContainer">
+    <EntitySet Name="Cart" EntityType="PMDataContext.Store.Cart" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="PMDataContext.Store.Category" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="PMDataContext.Store.Products" store:Type="Tables" />
+    <AssociationSet Name="FK_Cart_Product" Association="PMDataContext.Store.FK_Cart_Product">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Cart" />
+    </AssociationSet>
     <AssociationSet Name="FK_Product_Category" Association="PMDataContext.Store.FK_Product_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UniqueIdentifier" Type="uniqueidentifier" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="OrderGenerated" Type="bit" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="Id" />
@@ -28,6 +44,18 @@
     <Property Name="Category" Type="int" />
     <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
   </EntityType>
+  <Association Name="FK_Cart_Product">
+    <End Role="Products" Type="PMDataContext.Store.Products" Multiplicity="1" />
+    <End Role="Cart" Type="PMDataContext.Store.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_Category">
     <End Role="Category" Type="PMDataContext.Store.Category" Multiplicity="0..1" />
     <End Role="Products" Type="PMDataContext.Store.Products" Multiplicity="*" />

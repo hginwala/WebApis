@@ -8,17 +8,19 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("PMDataContext", "FK_Product_Category", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(WebApis.Models.Category), "Products", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebApis.Models.Product), true)]
+[assembly: EdmRelationshipAttribute("PMDataContext", "FK_Cart_Product", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebApis.Models.Product), "Cart", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebApis.Models.Cart), true)]
 
 #endregion
 
@@ -101,8 +103,25 @@ namespace WebApis.Models
             }
         }
         private ObjectSet<Product> _Products;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Cart> Carts
+        {
+            get
+            {
+                if ((_Carts == null))
+                {
+                    _Carts = base.CreateObjectSet<Cart>("Carts");
+                }
+                return _Carts;
+            }
+        }
+        private ObjectSet<Cart> _Carts;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -120,14 +139,243 @@ namespace WebApis.Models
         {
             base.AddObject("Products", product);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Carts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCarts(Cart cart)
+        {
+            base.AddObject("Carts", cart);
+        }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="PMDataContext", Name="Cart")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Cart : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Cart object.
+        /// </summary>
+        /// <param name="cartId">Initial value of the CartId property.</param>
+        /// <param name="productId">Initial value of the ProductId property.</param>
+        public static Cart CreateCart(global::System.Int32 cartId, global::System.Int32 productId)
+        {
+            Cart cart = new Cart();
+            cart.CartId = cartId;
+            cart.ProductId = productId;
+            return cart;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CartId
+        {
+            get
+            {
+                return _CartId;
+            }
+            set
+            {
+                if (_CartId != value)
+                {
+                    OnCartIdChanging(value);
+                    ReportPropertyChanging("CartId");
+                    _CartId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CartId");
+                    OnCartIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CartId;
+        partial void OnCartIdChanging(global::System.Int32 value);
+        partial void OnCartIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> UniqueIdentifier
+        {
+            get
+            {
+                return _UniqueIdentifier;
+            }
+            set
+            {
+                OnUniqueIdentifierChanging(value);
+                ReportPropertyChanging("UniqueIdentifier");
+                _UniqueIdentifier = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UniqueIdentifier");
+                OnUniqueIdentifierChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _UniqueIdentifier;
+        partial void OnUniqueIdentifierChanging(Nullable<global::System.Guid> value);
+        partial void OnUniqueIdentifierChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProductId
+        {
+            get
+            {
+                return _ProductId;
+            }
+            set
+            {
+                OnProductIdChanging(value);
+                ReportPropertyChanging("ProductId");
+                _ProductId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProductId");
+                OnProductIdChanged();
+            }
+        }
+        private global::System.Int32 _ProductId;
+        partial void OnProductIdChanging(global::System.Int32 value);
+        partial void OnProductIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Quantity
+        {
+            get
+            {
+                return _Quantity;
+            }
+            set
+            {
+                OnQuantityChanging(value);
+                ReportPropertyChanging("Quantity");
+                _Quantity = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Quantity");
+                OnQuantityChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Quantity;
+        partial void OnQuantityChanging(Nullable<global::System.Int32> value);
+        partial void OnQuantityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> DateCreated
+        {
+            get
+            {
+                return _DateCreated;
+            }
+            set
+            {
+                OnDateCreatedChanging(value);
+                ReportPropertyChanging("DateCreated");
+                _DateCreated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DateCreated");
+                OnDateCreatedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _DateCreated;
+        partial void OnDateCreatedChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> OrderGenerated
+        {
+            get
+            {
+                return _OrderGenerated;
+            }
+            set
+            {
+                OnOrderGeneratedChanging(value);
+                ReportPropertyChanging("OrderGenerated");
+                _OrderGenerated = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrderGenerated");
+                OnOrderGeneratedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _OrderGenerated;
+        partial void OnOrderGeneratedChanging(Nullable<global::System.Boolean> value);
+        partial void OnOrderGeneratedChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PMDataContext", "FK_Cart_Product", "Product")]
+        public Product Product
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("PMDataContext.FK_Cart_Product", "Product").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("PMDataContext.FK_Cart_Product", "Product").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Product> ProductReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("PMDataContext.FK_Cart_Product", "Product");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("PMDataContext.FK_Cart_Product", "Product", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -151,6 +399,7 @@ namespace WebApis.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -229,6 +478,7 @@ namespace WebApis.Models
         partial void OnDescriptionChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -255,6 +505,7 @@ namespace WebApis.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -279,6 +530,7 @@ namespace WebApis.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -453,6 +705,7 @@ namespace WebApis.Models
         partial void OnImageUrlChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -493,10 +746,34 @@ namespace WebApis.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PMDataContext", "FK_Cart_Product", "Cart")]
+        public EntityCollection<Cart> Carts
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Cart>("PMDataContext.FK_Cart_Product", "Cart");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Cart>("PMDataContext.FK_Cart_Product", "Cart", value);
+                }
+            }
+        }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

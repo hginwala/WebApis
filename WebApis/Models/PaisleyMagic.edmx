@@ -4,15 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PMDataContext.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="PMDataContext.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="PMDataContextStoreContainer">
+          <EntitySet Name="Cart" EntityType="PMDataContext.Store.Cart" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="PMDataContext.Store.Category" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="PMDataContext.Store.Products" store:Type="Tables" />
+          <AssociationSet Name="FK_Cart_Product" Association="PMDataContext.Store.FK_Cart_Product">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_Category" Association="PMDataContext.Store.FK_Product_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UniqueIdentifier" Type="uniqueidentifier" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="OrderGenerated" Type="bit" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +49,18 @@
           <Property Name="Category" Type="int" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <Association Name="FK_Cart_Product">
+          <End Role="Products" Type="PMDataContext.Store.Products" Multiplicity="1" />
+          <End Role="Cart" Type="PMDataContext.Store.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="PMDataContext.Store.Category" Multiplicity="0..1" />
           <End Role="Products" Type="PMDataContext.Store.Products" Multiplicity="*" />
@@ -45,8 +73,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PMDataContext" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -56,6 +83,11 @@
           <AssociationSet Name="FK_Product_Category" Association="PMDataContext.FK_Product_Category">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="Carts" EntityType="PMDataContext.Cart" />
+          <AssociationSet Name="FK_Cart_Product" Association="PMDataContext.FK_Cart_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -79,6 +111,7 @@
           <Property Name="Category" Type="Int32" />
           <Property Name="ImageUrl" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Category1" Relationship="PMDataContext.FK_Product_Category" FromRole="Products" ToRole="Category" />
+          <NavigationProperty Name="Carts" Relationship="PMDataContext.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="PMDataContext.Category" Multiplicity="0..1" />
@@ -89,6 +122,30 @@
             </Principal>
             <Dependent Role="Products">
               <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Type="Int32" Name="CartId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="UniqueIdentifier" />
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="Int32" Name="Quantity" />
+          <Property Type="DateTime" Name="DateCreated" />
+          <Property Type="Boolean" Name="OrderGenerated" />
+          <NavigationProperty Name="Product" Relationship="PMDataContext.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Cart_Product">
+          <End Type="PMDataContext.Product" Role="Product" Multiplicity="1" />
+          <End Type="PMDataContext.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -112,6 +169,18 @@
             <ScalarProperty Name="Category" ColumnName="Category" />
             <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="PMDataContext.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="OrderGenerated" ColumnName="OrderGenerated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UniqueIdentifier" ColumnName="UniqueIdentifier" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -138,6 +207,11 @@
         <AssociationConnector Association="PMDataContext.FK_Product_Category" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="2.2689925130208333" />
           <ConnectorPoint PointX="3" PointY="2.2689925130208333" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="PMDataContext.Cart" Width="1.5" PointX="5.25" PointY="1.25" Height="2.3648893229166656" />
+        <AssociationConnector Association="PMDataContext.FK_Cart_Product" >
+          <ConnectorPoint PointX="4.5" PointY="2.4324446614583328" />
+          <ConnectorPoint PointX="5.25" PointY="2.4324446614583328" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

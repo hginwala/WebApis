@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,6 +142,7 @@
     <Compile Include="Models\Products\ProductListingModel.cs" />
     <Compile Include="Models\Products\ProductModel.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ProductsService.cs" />
   </ItemGroup>
@@ -279,6 +281,7 @@
     <Content Include="Views\Products\ProductListing.cshtml" />
     <Content Include="Views\Products\ProductDetails.cshtml" />
     <Content Include="Views\Products\checkout.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Public\" />
