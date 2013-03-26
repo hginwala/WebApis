@@ -170,11 +170,13 @@ namespace WebApis.Models
         /// Create a new Cart object.
         /// </summary>
         /// <param name="cartId">Initial value of the CartId property.</param>
+        /// <param name="uniqueIdentifier">Initial value of the UniqueIdentifier property.</param>
         /// <param name="productId">Initial value of the ProductId property.</param>
-        public static Cart CreateCart(global::System.Int32 cartId, global::System.Int32 productId)
+        public static Cart CreateCart(global::System.Int32 cartId, global::System.Guid uniqueIdentifier, global::System.Int32 productId)
         {
             Cart cart = new Cart();
             cart.CartId = cartId;
+            cart.UniqueIdentifier = uniqueIdentifier;
             cart.ProductId = productId;
             return cart;
         }
@@ -213,9 +215,9 @@ namespace WebApis.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Guid> UniqueIdentifier
+        public global::System.Guid UniqueIdentifier
         {
             get
             {
@@ -230,8 +232,8 @@ namespace WebApis.Models
                 OnUniqueIdentifierChanged();
             }
         }
-        private Nullable<global::System.Guid> _UniqueIdentifier;
-        partial void OnUniqueIdentifierChanging(Nullable<global::System.Guid> value);
+        private global::System.Guid _UniqueIdentifier;
+        partial void OnUniqueIdentifierChanging(global::System.Guid value);
         partial void OnUniqueIdentifierChanged();
     
         /// <summary>

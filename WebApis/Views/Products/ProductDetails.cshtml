@@ -9,8 +9,23 @@
             @(Model.Stock > 0 ? string.Format("in stock", Model.Stock) : "Out of stock currently")
             @Model.Price.ToString("C") </span>
         <div style="margin-top: 20px;">
-            <input class="btn btn-large btn-primary" type="submit" value="Add to Cart" />
+            <input class="btn btn-large btn-primary" name="addtocartbtn" type="submit" value="Add to Cart" />
         </div>
         @Html.TextAreaFor(m => m.Description, new { disabled = "disabled", style = "margin-top:20px;height:150px;overflow:auto;border:none;" })
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('input[name="addtocartbtn"]').on('click', function () {
+            $.post('/ShoppingCart/AddToCart',{ productId: "@(Model.Id)" }, function (data) {
+                alert(data.id);
+            });
+        });
+    });
+
+
+</script>

@@ -53,7 +53,7 @@
       <PropertyRef Name="CartId" />
     </Key>
     <Property Type="Int32" Name="CartId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Guid" Name="UniqueIdentifier" />
+    <Property Type="Guid" Name="UniqueIdentifier" Nullable="false" />
     <Property Type="Int32" Name="ProductId" Nullable="false" />
     <Property Type="Int32" Name="Quantity" />
     <Property Type="DateTime" Name="DateCreated" />
