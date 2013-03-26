@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PMDataContext" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="PMEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="PMDataContext.Category" />
+    <EntitySet Name="Products" EntityType="PMDataContext.Product" />
+    <AssociationSet Name="FK_Product_Category" Association="PMDataContext.FK_Product_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <EntitySet Name="Carts" EntityType="PMDataContext.Cart" />
+    <AssociationSet Name="FK_Cart_Product" Association="PMDataContext.FK_Cart_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Products" Relationship="PMDataContext.FK_Product_Category" FromRole="Category" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="Category" Type="Int32" />
+    <Property Name="ImageUrl" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Category1" Relationship="PMDataContext.FK_Product_Category" FromRole="Products" ToRole="Category" />
+    <NavigationProperty Name="Carts" Relationship="PMDataContext.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
+  </EntityType>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="PMDataContext.Category" Multiplicity="0..1" />
+    <End Role="Products" Type="PMDataContext.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Type="Int32" Name="CartId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Guid" Name="UniqueIdentifier" Nullable="false" />
+    <Property Type="Int32" Name="ProductId" Nullable="false" />
+    <Property Type="Int32" Name="Quantity" />
+    <Property Type="DateTime" Name="DateCreated" />
+    <Property Type="Boolean" Name="OrderGenerated" />
+    <NavigationProperty Name="Product" Relationship="PMDataContext.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Cart_Product">
+    <End Type="PMDataContext.Product" Role="Product" Multiplicity="1" />
+    <End Type="PMDataContext.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

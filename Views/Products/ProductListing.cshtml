@@ -1,0 +1,14 @@
+﻿@model WebApis.Models.Products.ProductListingModel
+<h3>@Model.CategoryName</h3>
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+    
+        <div class="span2" style="padding-top:25px">            
+           
+            <a href="@Url.Action("GetProduct","Products",new {id = product.Id})">
+            <img src='@string.Format("/assets/images/products/{0}", product.ImageUrl)' style="width:145px; height:145px" /></a>
+            <div style="padding-top:15px">@product.Name</div>
+        </div>
+    }
+</div>

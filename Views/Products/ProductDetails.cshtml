@@ -1,0 +1,31 @@
+﻿@model WebApis.Models.ProductsModel
+<h3>@Model.Name</h3>
+<div class="row">
+    <div class="span4">
+        <img class="pics" src='@string.Format("/assets/images/products/{0}", Model.ImageUrl)' width="400" height="600" />
+    </div>
+    <div class="span3">
+        <span>
+            @(Model.Stock > 0 ? string.Format("in stock", Model.Stock) : "Out of stock currently")
+            @Model.Price.ToString("C") </span>
+        <div style="margin-top: 20px;">
+            <input class="btn btn-large btn-primary" name="addtocartbtn" type="submit" value="Add to Cart" />
+        </div>
+        @Html.TextAreaFor(m => m.Description, new { disabled = "disabled", style = "margin-top:20px;height:150px;overflow:auto;border:none;" })
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('input[name="addtocartbtn"]').on('click', function () {
+            $.post('/ShoppingCart/AddToCart',{ productId: "@(Model.Id)" }, function (data) {
+                alert(data.id);
+            });
+        });
+    });
+
+
+</script>

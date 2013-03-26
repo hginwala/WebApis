@@ -1,0 +1,30 @@
+﻿@model WebApis.Models.ShoppingCartVM
+<h4>Cart</h4>
+<div class="span9">
+    @if (Model.cartitems.Any())
+    {
+        foreach (var item in Model.cartitems)
+        {
+        <div class="row">
+            <span class="span1">
+                <img src='@string.Format("/assets/images/products/{0}", item.Product.ImageUrl)' />
+            </span>
+            <span class="span2">@item.Product.Name </span>
+            <div class="controls controls-row">
+                <input class="span1" type="text" value="@item.Quantity"/>
+                <span class="span3">@item.Product.Price.ToString("C")</span>
+                <span class="span1 uneditable-input">@(string.Format("{0}", item.Quantity * item.Product.Price))</span>
+                <span class="span1">
+                    @Html.ActionLink("X", "RemoveFromCart","ShoppingCart", new { productId = @item.Product.Id }, new { @class = "btn btn-warning btn-mini " })
+                </span>
+            </div>
+        </div>
+        }
+        
+        <div class="row">
+            <div class="span8"></div>
+            <div class="span1">total xx</div>
+        </div>
+        
+    }
+</div>
