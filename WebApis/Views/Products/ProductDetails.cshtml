@@ -22,7 +22,7 @@
 
         $('input[name="addtocartbtn"]').on('click', function () {
             $.post('/ShoppingCart/AddToCart',{ productId: "@(Model.Id)" }, function (data) {
-                alert(data.id);
+                alert(data.id + "added to cart");
             });
         });
     });
