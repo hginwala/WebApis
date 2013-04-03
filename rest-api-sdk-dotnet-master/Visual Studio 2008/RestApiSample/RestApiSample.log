@@ -1,0 +1,18 @@
+2013-04-02 23:08:50,416 [7320] ERROR PayPal.Exception.PayPalException [(null)] The remote name could not be resolved: 'api.sandbox.paypal.com'
+PayPal.Exception.PayPalException: The remote name could not be resolved: 'api.sandbox.paypal.com' ---> System.Net.WebException: The remote name could not be resolved: 'api.sandbox.paypal.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at PayPal.OAuthTokenCredential.GenerateOAuthToken(String base64ClientID)
+   --- End of inner exception stack trace ---
+2013-04-02 23:09:05,134 [7320] ERROR PayPal.Exception.PayPalException [(null)] The remote name could not be resolved: 'api.sandbox.paypal.com'
+PayPal.Exception.PayPalException: The remote name could not be resolved: 'api.sandbox.paypal.com' ---> System.Net.WebException: The remote name could not be resolved: 'api.sandbox.paypal.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at PayPal.OAuthTokenCredential.GenerateOAuthToken(String base64ClientID)
+   --- End of inner exception stack trace ---
+2013-04-02 23:09:16,305 [8404] ERROR PayPal.Exception.PayPalException [(null)] The remote name could not be resolved: 'api.sandbox.paypal.com'
+PayPal.Exception.PayPalException: The remote name could not be resolved: 'api.sandbox.paypal.com' ---> System.Net.WebException: The remote name could not be resolved: 'api.sandbox.paypal.com'
+   at System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   at System.Net.HttpWebRequest.GetRequestStream()
+   at PayPal.OAuthTokenCredential.GenerateOAuthToken(String base64ClientID)
+   --- End of inner exception stack trace ---

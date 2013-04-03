@@ -17,5 +17,10 @@ namespace WebApis.Models
     public class ShoppingCartVM
     {
         public List<ShoppingCart> cartitems = new List<ShoppingCart>();
+        public Guid UniqueIdentifier { get; set; }
+        public decimal CartTotal
+        {
+            get { return this.cartitems.Select(c => c.Quantity * c.Product.Price).Sum(); }
+        }
     }
 }

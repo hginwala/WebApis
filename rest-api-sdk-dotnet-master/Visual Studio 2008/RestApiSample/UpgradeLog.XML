@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="RestApiSample">
+</Property><Property Name="Solution File" Value="C:\Users\hardik\Documents\Visual Studio 2010\Projects\WebApis\rest-api-sdk-dotnet-master\Visual Studio 2008\RestApiSample\RestApiSample.sln">
+</Property><Property Name="Date" Value="Tuesday, April 2, 2013">
+</Property><Property Name="Time" Value="23:07 PM">
+</Property></Properties><Event ErrorLevel="0" Project="RestApiSample" Source="RestApiSample.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="RestApiSample" Source="RestApiSample.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="RestApiSample.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="RestApiSample.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="RestApiSample" Source="RestApiSample.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

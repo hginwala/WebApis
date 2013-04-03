@@ -18,7 +18,7 @@ namespace WebApis.Controllers
             var cartinstance = cartsrc.GetCart(this.HttpContext);
 
             ShoppingCartVM cart = new ShoppingCartVM {cartitems = cartinstance.GetCartItems()};
-
+            cart.UniqueIdentifier = cart.cartitems.FirstOrDefault().UniqueIdentifier;
             return View(cart);            
         }
 
